@@ -3,6 +3,7 @@ import { HomeLanding } from "@/components/landing/home-landing";
 import { SiteFrame } from "@/components/landing/site-frame";
 import { JsonLd } from "@/components/seo/json-ld";
 import { homeJsonLd } from "@/lib/seo/schema";
+import { shareImage } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: { absolute: "PNG to WebP convertor in bulk · Picwise" },
@@ -25,6 +26,13 @@ export const metadata: Metadata = {
     title: "PNG to WebP convertor in bulk · Picwise",
     description: "Batch convert images in the browser. Files never leave your device.",
     url: "/",
+    images: [shareImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PNG to WebP convertor in bulk · Picwise",
+    description: "Batch convert images in the browser. Files never leave your device.",
+    images: [shareImage],
   },
 };
 

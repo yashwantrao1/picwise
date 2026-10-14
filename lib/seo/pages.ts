@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { InputFormat, OutputFormat } from "@/types";
 import { conversionPath } from "@/lib/seo/conversions";
+import { shareImage } from "@/lib/site";
 
 export interface SeoSection {
   heading: string;
@@ -708,11 +709,13 @@ export function conversionMetadata(page: SeoPage): Metadata {
       type: "article",
       siteName: "Picwise",
       locale: "en_US",
+      images: [shareImage],
     },
     twitter: {
       card: "summary_large_image",
       title: page.ogTitle,
       description: page.ogDescription,
+      images: [shareImage],
     },
   };
 }

@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { siteConfig } from "@/lib/site-config";
-import { siteUrl } from "@/lib/site";
+import { shareImage, siteUrl } from "@/lib/site";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css";
@@ -40,11 +40,13 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName: siteConfig.name,
+    images: [shareImage],
   },
   twitter: {
     card: "summary_large_image",
     title: `${siteConfig.name} — Private image converter and compressor`,
     description: "Batch convert and compress images locally. Nothing is uploaded.",
+    images: [shareImage],
   },
   icons: {
     icon: [

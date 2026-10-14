@@ -4,6 +4,7 @@ import { SiteFrame } from "@/components/landing/site-frame";
 import { JsonLd } from "@/components/seo/json-ld";
 import { privacySections, privacyUpdatedLabel, type InlinePart } from "@/lib/seo/privacy-content";
 import { privacyJsonLd } from "@/lib/seo/schema";
+import { shareImage } from "@/lib/site";
 
 const title = "Privacy Policy · Picwise";
 const description =
@@ -21,11 +22,13 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Picwise",
     locale: "en_US",
+    images: [shareImage],
   },
   twitter: {
     card: "summary_large_image",
     title: "Picwise privacy policy",
     description,
+    images: [shareImage],
   },
 };
 
