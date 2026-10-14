@@ -1,0 +1,32 @@
+# Picwise
+
+> Private bulk image convertor and compressor. Processing stays in the browser. Files are never uploaded.
+
+Picwise converts and compresses a folder of images on the device and downloads one file or a zip. There is no account. Input formats are PNG, JPG/JPEG, WebP, AVIF, GIF, BMP, TIFF, SVG, ICO, and HEIC. Output formats are PNG, JPG, WebP, AVIF, GIF, BMP, and ICO. One output format applies to the whole batch. A width, when set, keeps each image’s own aspect ratio. Quality applies to JPG, WebP, and AVIF. PNG can stay lossless or be reduced to fewer colors. EXIF is used to turn a picture upright, then stripped. GIF and animated WebP keep the first frame. SVG is rasterized. ICO output stops at 256 pixels on the long edge. TIFF, SVG, and HEIC can come in and are not outputs. JPG and BMP fill transparent pixels with the background color.
+
+The site is made by Yashwant Rao. The canonical origin is https://picwise-five.vercel.app.
+
+## Pages
+
+- [Home](https://picwise-five.vercel.app/): Bulk convertor index, format guide, and questions. Files stay on the device.
+- [Convertor](https://picwise-five.vercel.app/convertor): The tool. Add a folder, choose one output format, then download a zip.
+- [Privacy policy](https://picwise-five.vercel.app/privacy): Images are not uploaded. Settings stay in local storage. Google advertising and Google Analytics may record the page visit, not the pictures.
+
+## Convertors
+
+- [PNG to WebP](https://picwise-five.vercel.app/png-to-webp): Free PNG to WebP convertor for whole folders. Keeps transparency, runs in the browser, and downloads a zip.
+- [JPG to WebP](https://picwise-five.vercel.app/jpg-to-webp): Convert JPG and JPEG photos to WebP in bulk, with quality control and a zip download.
+- [PNG to JPG](https://picwise-five.vercel.app/png-to-jpg): Convert PNG to JPG in bulk. Transparent pixels are filled. Quality is adjustable.
+- [WebP to PNG](https://picwise-five.vercel.app/webp-to-png): Convert WebP to PNG in bulk. Transparency is kept. The file often gets larger.
+- [WebP to JPG](https://picwise-five.vercel.app/webp-to-jpg): Convert WebP to JPG in bulk. Set quality and the fill for transparent pixels.
+- [JPG to PNG](https://picwise-five.vercel.app/jpg-to-png): Convert JPG to PNG in bulk when a pipeline only accepts PNG. The file usually gets larger.
+- [HEIC to JPG](https://picwise-five.vercel.app/heic-to-jpg): Convert iPhone HEIC photos to JPG in bulk. Orientation is applied, then metadata is stripped.
+- [HEIC to WebP](https://picwise-five.vercel.app/heic-to-webp): Convert iPhone HEIC photos to WebP in bulk, without a JPG in the middle.
+- [AVIF to JPG](https://picwise-five.vercel.app/avif-to-jpg): Convert AVIF to JPG in bulk when the destination cannot open AVIF.
+- [GIF to PNG](https://picwise-five.vercel.app/gif-to-png): Convert GIF to PNG in bulk using the first frame. The animation is not kept.
+
+## Optional
+
+- [GitHub](https://github.com/yashwantrao1): Source and contact for Yashwant Rao.
+- [Portfolio](https://yashwantrao.in/): The author’s site.
+- [LinkedIn](https://www.linkedin.com/in/yashwant-rao0024/): The author’s profile.
