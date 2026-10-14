@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Flap } from "@/components/landing/flap";
 import { EASE } from "@/components/landing/motion-provider";
-import { articlePath, popularConversions, type ConversionLink } from "@/lib/seo/conversions";
+import { articlePath, homeHeadline, homeHeadlineRest, homeLede, popularConversions, type ConversionLink } from "@/lib/seo/conversions";
 import { FORMAT_LABEL } from "@/lib/utils/formats";
 
 export function Masthead() {
@@ -46,12 +46,10 @@ export function Masthead() {
           <p className="mt-4 max-w-sm text-lg leading-snug">{shown.title}</p>
         </Link>
         <h1 className="mt-10 text-[2.5rem] leading-[0.92] font-semibold tracking-tight sm:text-6xl">
-          A folder in.
-          <span className="text-muted-foreground mt-1 block">One format out.</span>
+          {homeHeadline}
+          <span className="text-muted-foreground mt-1 block">{homeHeadlineRest}</span>
         </h1>
-        <p className="mt-6 max-w-md text-base leading-7">
-          Picwise is a private bulk image convertor. A png to webp convertor in bulk, a heic to jpg convertor in bulk, and every other pair on this page are the same tool: the files stay on this device, and you download a zip when the folder is done.
-        </p>
+        <p className="mt-6 max-w-md text-base leading-7">{homeLede}</p>
         <m.span className="mt-8 inline-flex" initial="rest" whileHover="hot" animate="rest">
           <Link
             href="/convertor"

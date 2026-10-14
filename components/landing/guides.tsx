@@ -2,7 +2,7 @@
 
 import { m, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { conversionPath, faqs, formatFacts, guides, steps } from "@/lib/seo/conversions";
+import { batchNote, conversionPath, faqs, formatFacts, guides, steps } from "@/lib/seo/conversions";
 import { EASE } from "@/components/landing/motion-provider";
 
 export function Guides() {
@@ -26,7 +26,7 @@ export function Guides() {
           />
           <ol className="space-y-8 border-l pl-6">
           {steps.map((step, index) => (
-            <li key={step.title} className="relative">
+            <li key={step.title} id={`batch-step-${index + 1}`} className="relative">
               <p className="text-muted-foreground font-mono text-xs">{String(index + 1).padStart(2, "0")}</p>
               <h3 className="mt-1 text-lg font-semibold">{step.title}</h3>
               <p className="text-muted-foreground mt-2 max-w-2xl text-sm leading-6">{step.body}</p>
@@ -34,9 +34,7 @@ export function Guides() {
           ))}
           </ol>
         </div>
-        <p className="text-muted-foreground mt-8 max-w-2xl text-sm leading-6">
-          Workers do the encoding so the page stays usable. Quality applies to JPG, WebP, and AVIF. PNG can stay lossless. EXIF is used to turn the picture upright, then dropped, unless you ask to keep it on a JPG that is staying a JPG.
-        </p>
+        <p className="text-muted-foreground mt-8 max-w-2xl text-sm leading-6">{batchNote}</p>
       </section>
 
       <section className="border-t py-12" aria-labelledby="facts-heading">

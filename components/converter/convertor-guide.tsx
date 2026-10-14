@@ -1,4 +1,6 @@
 import { Suspense, type ReactNode } from "react";
+import { JsonLd } from "@/components/seo/json-ld";
+import { convertorJsonLd } from "@/lib/seo/schema";
 import { FORMAT_LABEL, isInputFormat, isOutputFormat } from "@/lib/utils/formats";
 import type { InputFormat, OutputFormat } from "@/types";
 
@@ -154,7 +156,7 @@ function Docket() {
   );
 }
 
-function ConvertorGuideBody({ from, to }: { from: InputFormat | null; to: OutputFormat | null }) {
+function ConvertorGuideBody({ from, to, schema = false }: { from: InputFormat | null; to: OutputFormat | null; schema?: boolean }) {
   const source = from ? FORMAT_LABEL[from] : "IMG";
   const output = to ? FORMAT_LABEL[to] : "FILE";
   const pair = from && to ? `${FORMAT_LABEL[from]} to ${FORMAT_LABEL[to]}` : null;
@@ -186,8 +188,34 @@ function ConvertorGuideBody({ from, to }: { from: InputFormat | null; to: Output
     },
   ] as const;
 
+  const localHeading = pair ? `${pair}, still on this device` : "The folder never leaves this device";
+  const localText =
+    "Decoding and encoding run in the browser. Closing the tab discards the batch. A file this browser cannot read is marked on its own card. It is not posted somewhere else to be retried.";
+  const batchText =
+    "You do not convert them one by one. Drop the lot, press Convert once, and the queue runs while the page stays usable. When it finishes, one zip holds the set. Mixed formats in a single drop are fine. They all come out as the format selected on the right.";
+  const formatsText =
+    "GIF and animated WebP keep the first frame. SVG is drawn out to pixels. ICO output stops at 256 pixels on the long edge. TIFF, SVG, and HEIC come in. They do not go out.";
+  const settingsText =
+    "Quality applies to JPG, WebP, and AVIF. Type a width and each picture’s height follows its own aspect ratio. Nothing is enlarged unless you allow it. Target size hunts for a smaller file. The picture is turned upright from its orientation tag, then that metadata is stripped, unless a JPG is staying a JPG and you ask to keep it.";
+
   return (
     <div className="border-t">
+      {schema ? (
+        <JsonLd
+          data={convertorJsonLd({
+            headline: pair ? `${pair} convertor in bulk` : "Convert and compress images privately",
+            steps: steps.map((step) => ({ name: step.title, text: step.body })),
+            sections: [
+              { name: localHeading, text: localText },
+              { name: "One press for the whole folder", text: batchText },
+              { name: "The formats on this bench", text: formatsText },
+              { name: "The settings that change the file", text: settingsText },
+            ],
+            inputs: INPUTS,
+            outputs: OUTPUTS,
+          })}
+        />
+      ) : null}
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
       <section aria-labelledby="bench-steps" className="pt-14 pb-4">
         <p className="font-mono text-[11px] tracking-[0.18em] uppercase">{pair ?? "How a batch goes"}</p>
@@ -201,7 +229,7 @@ function ConvertorGuideBody({ from, to }: { from: InputFormat | null; to: Output
 
       <div className="grid gap-4 pb-16 sm:grid-cols-2 xl:grid-cols-4">
         {steps.map((step, index) => (
-          <article key={step.title} className={`flex flex-col text-[#1c1915] shadow-[5px_5px_0_0_rgba(0,0,0,0.28)] ${step.paper}`}>
+          <article key={step.title} id={`guide-step-${index + 1}`} className={`flex flex-col text-[#1c1915] shadow-[5px_5px_0_0_rgba(0,0,0,0.28)] ${step.paper}`}>
             <p className="px-4 pt-4 font-mono text-[11px] tracking-[0.16em]">0{index + 1}</p>
             {step.scene}
             <div className="mt-auto border-t border-black/10 bg-white px-4 py-5">
@@ -218,11 +246,9 @@ function ConvertorGuideBody({ from, to }: { from: InputFormat | null; to: Output
           <div>
             <p className="font-mono text-[11px] tracking-[0.18em] text-[#f5f7ff]/50">01</p>
             <h2 id="local-heading" className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-              {pair ? `${pair}, still on this device` : "The folder never leaves this device"}
+              {localHeading}
             </h2>
-            <p className="mt-4 max-w-md text-sm leading-7 text-[#c5cce0]">
-              Decoding and encoding run in the browser. Closing the tab discards the batch. A file this browser cannot read is marked on its own card. It is not posted somewhere else to be retried.
-            </p>
+            <p className="mt-4 max-w-md text-sm leading-7 text-[#c5cce0]">{localText}</p>
             <a href="#convert" className="mt-6 inline-block border-b border-[#3de0b0] pb-0.5 font-mono text-xs tracking-wide text-[#3de0b0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3de0b0]">
               Back up to the files
             </a>
@@ -241,9 +267,7 @@ function ConvertorGuideBody({ from, to }: { from: InputFormat | null; to: Output
             <h2 id="batch-heading" className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
               One press for the whole folder
             </h2>
-            <p className="text-muted-foreground mt-4 text-sm leading-7">
-              You do not convert them one by one. Drop the lot, press Convert once, and the queue runs while the page stays usable. When it finishes, one zip holds the set. Mixed formats in a single drop are fine. They all come out as the format selected on the right.
-            </p>
+            <p className="text-muted-foreground mt-4 text-sm leading-7">{batchText}</p>
           </div>
         </div>
       </section>
@@ -255,9 +279,7 @@ function ConvertorGuideBody({ from, to }: { from: InputFormat | null; to: Output
             <h2 id="formats-heading" className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
               The formats on this bench
             </h2>
-            <p className="mt-4 text-sm leading-7 text-[#dfe4ff]">
-              GIF and animated WebP keep the first frame. SVG is drawn out to pixels. ICO output stops at 256 pixels on the long edge. TIFF, SVG, and HEIC come in. They do not go out.
-            </p>
+            <p className="mt-4 text-sm leading-7 text-[#dfe4ff]">{formatsText}</p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2">
             <div>
@@ -294,9 +316,7 @@ function ConvertorGuideBody({ from, to }: { from: InputFormat | null; to: Output
             <h2 id="settings-heading" className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
               The settings that change the file
             </h2>
-            <p className="text-muted-foreground mt-4 text-sm leading-7">
-              Quality applies to JPG, WebP, and AVIF. Type a width and each picture’s height follows its own aspect ratio. Nothing is enlarged unless you allow it. Target size hunts for a smaller file. The picture is turned upright from its orientation tag, then that metadata is stripped, unless a JPG is staying a JPG and you ask to keep it.
-            </p>
+            <p className="text-muted-foreground mt-4 text-sm leading-7">{settingsText}</p>
           </div>
         </div>
       </section>
@@ -312,6 +332,7 @@ async function ConvertorGuideResolved({ searchParams }: { searchParams: Converto
     <ConvertorGuideBody
       from={isInputFormat(fromValue) ? fromValue : null}
       to={isOutputFormat(toValue) ? toValue : null}
+      schema
     />
   );
 }

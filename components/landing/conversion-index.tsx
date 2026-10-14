@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Flap } from "@/components/landing/flap";
-import { conversionPath, sourceNotes } from "@/lib/seo/conversions";
+import { conversionPath, formatIndexIntro, sourceNotes } from "@/lib/seo/conversions";
 import { FORMAT_LABEL } from "@/lib/utils/formats";
 import { INPUT_FORMATS, OUTPUT_FORMATS, type InputFormat, type OutputFormat } from "@/types";
 
@@ -19,9 +19,7 @@ export function ConversionIndex() {
           <h2 id="all-formats" className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Every format to every format
           </h2>
-          <p className="text-muted-foreground mt-2 max-w-xl text-sm leading-6">
-            Each button opens the convertor with that output already selected. Point at a pair if you want to see the trip before you commit the folder.
-          </p>
+          <p className="text-muted-foreground mt-2 max-w-xl text-sm leading-6">{formatIndexIntro}</p>
         </div>
         <p className="flex items-baseline gap-2 font-mono text-xl">
           <Flap text={fromLabel} />

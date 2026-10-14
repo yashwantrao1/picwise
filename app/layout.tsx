@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Poppins } from "next/font/google";
 import { Footer } from "@/components/footer";
+import { GoogleTag } from "@/components/google-tag";
 import { ServiceWorkerRegister } from "@/components/pwa-register";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${poppins.variable} ${geistMono.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="bg-background text-foreground flex min-h-full flex-col">
+        <GoogleTag />
         <ThemeProvider>
           <TooltipProvider>
             <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:bg-card focus:px-3 focus:py-2">

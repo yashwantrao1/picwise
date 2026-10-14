@@ -717,60 +717,6 @@ export function conversionMetadata(page: SeoPage): Metadata {
   };
 }
 
-export function conversionJsonLd(page: SeoPage, siteUrl: string) {
-  const url = `${siteUrl}/${page.slug}`;
-  return {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": `${url}#webpage`,
-        url,
-        name: page.title,
-        description: page.description,
-        inLanguage: "en",
-        isPartOf: { "@type": "WebSite", name: "Picwise", url: siteUrl },
-        about: {
-          "@type": "WebApplication",
-          name: "Picwise",
-          applicationCategory: "MultimediaApplication",
-          operatingSystem: "Any",
-          offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-          url: `${siteUrl}/convertor`,
-        },
-      },
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-          { "@type": "ListItem", position: 2, name: page.h1, item: url },
-        ],
-      },
-      {
-        "@type": "HowTo",
-        name: page.h1,
-        description: page.description,
-        tool: { "@type": "HowToTool", name: "Picwise" },
-        step: page.steps.map((step, index) => ({
-          "@type": "HowToStep",
-          position: index + 1,
-          name: step.name,
-          text: step.text,
-          url: `${url}#step-${index + 1}`,
-        })),
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: page.faqs.map((faq) => ({
-          "@type": "Question",
-          name: faq.question,
-          acceptedAnswer: { "@type": "Answer", text: faq.answer },
-        })),
-      },
-    ],
-  };
-}
-
 export function converterHref(page: SeoPage): string {
   return conversionPath(page.from, page.to);
 }

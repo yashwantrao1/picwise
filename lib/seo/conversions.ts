@@ -154,6 +154,15 @@ export const guides: readonly Guide[] = [
   },
 ];
 
+export const homeHeadline = "A folder in.";
+export const homeHeadlineRest = "One format out.";
+export const homeLede =
+  "Picwise is a private bulk image convertor. A png to webp convertor in bulk, a heic to jpg convertor in bulk, and every other pair on this page are the same tool: the files stay on this device, and you download a zip when the folder is done.";
+export const formatIndexIntro =
+  "Each button opens the convertor with that output already selected. Point at a pair if you want to see the trip before you commit the folder.";
+export const batchNote =
+  "Workers do the encoding so the page stays usable. Quality applies to JPG, WebP, and AVIF. PNG can stay lossless. EXIF is used to turn the picture upright, then dropped, unless you ask to keep it on a JPG that is staying a JPG.";
+
 export const steps: readonly { title: string; body: string }[] = [
   {
     title: "Bring the folder",

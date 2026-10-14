@@ -1,16 +1,15 @@
 import Link from "next/link";
 import { SiteFrame } from "@/components/landing/site-frame";
-import { conversionJsonLd, converterHref, getSeoPage, type SeoPage } from "@/lib/seo/pages";
-import { siteUrl } from "@/lib/site";
+import { converterHref, getSeoPage, type SeoPage } from "@/lib/seo/pages";
+import { conversionJsonLd } from "@/lib/seo/schema";
+import { JsonLd } from "@/components/seo/json-ld";
 import { FORMAT_LABEL } from "@/lib/utils/formats";
 
 export function ConversionArticle({ page }: { page: SeoPage }) {
   const related = page.related.map((slug) => getSeoPage(slug)).filter((item): item is SeoPage => item !== undefined);
-  const jsonLd = conversionJsonLd(page, siteUrl);
-
   return (
     <main id="main" className="flex flex-1 flex-col">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      <JsonLd data={conversionJsonLd(page)} />
       <SiteFrame />
       <article className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:py-14">
         <nav aria-label="Breadcrumb" className="text-muted-foreground font-mono text-xs">
