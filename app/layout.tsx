@@ -9,6 +9,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { siteConfig } from "@/lib/site-config";
 import { siteUrl } from "@/lib/site";
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css";
 
 const poppins = Poppins({
@@ -71,7 +72,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               Skip to content
             </a>
             <SiteHeader />
-            <Analytics />
+            <Analytics /> 
+            <SpeedInsights />
             {children}
             <Footer />
             <Toaster />
