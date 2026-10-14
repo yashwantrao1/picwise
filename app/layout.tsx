@@ -53,6 +53,9 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/apple-icon", sizes: "180x180", type: "image/png" }],
   },
+  verification: {
+    google: "l-Eg4FCnrP-PNg8IeCEY_WV7oEsdsdgQHL4I0Gsm8srj974w",
+  },
 };
 
 export const viewport: Viewport = {
