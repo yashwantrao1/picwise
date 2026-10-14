@@ -1,4 +1,5 @@
 import { encodeBmp } from "@/lib/codecs/bmp";
+import { loadCodec, type CodecEncodeModule, type OxipngModule } from "@/lib/codecs/runtime";
 import { trimEncoded } from "@/lib/codecs/trim";
 import { encodeIco } from "@/lib/codecs/ico";
 import { asBytes, cloneImageData } from "@/lib/codecs/image-data";
@@ -24,22 +25,22 @@ async function canvasEncode(canvas: OffscreenCanvas, format: OutputFormat, quali
 }
 
 async function encodeJpeg(image: ImageData, quality: number): Promise<Uint8Array> {
-  const { encode } = await import("@jsquash/jpeg");
+  const { encode } = await loadCodec<CodecEncodeModule>("jpeg/index.js");
   return trimEncoded(asBytes(await encode(cloneImageData(image), { quality })), "jpg");
 }
 
 async function encodeWebp(image: ImageData, quality: number): Promise<Uint8Array> {
-  const { encode } = await import("@jsquash/webp");
+  const { encode } = await loadCodec<CodecEncodeModule>("webp/index.js");
   return trimEncoded(asBytes(await encode(cloneImageData(image), { quality })), "webp");
 }
 
 async function encodeAvif(image: ImageData, quality: number): Promise<Uint8Array> {
-  const { encode } = await import("@jsquash/avif");
+  const { encode } = await loadCodec<CodecEncodeModule>("avif/index.js");
   return trimEncoded(asBytes(await encode(cloneImageData(image), { quality, speed: 8 })), "avif");
 }
 
 async function encodePngLossless(image: ImageData): Promise<Uint8Array> {
-  const { encode } = await import("@jsquash/png");
+  const { encode } = await loadCodec<CodecEncodeModule>("png/index.js");
   const encoded = asBytes(await encode(cloneImageData(image)));
   return optimisePng(encoded);
 }
@@ -47,7 +48,7 @@ async function encodePngLossless(image: ImageData): Promise<Uint8Array> {
 async function optimisePng(bytes: Uint8Array): Promise<Uint8Array> {
   const png = trimEncoded(bytes, "png");
   try {
-    const { optimise } = await import("@jsquash/oxipng");
+    const { optimise } = await loadCodec<OxipngModule>("oxipng/index.js");
     const copy = new Uint8Array(png.byteLength);
     copy.set(png);
     const optimised = await optimise(copy.buffer, {

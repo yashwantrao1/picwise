@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# Staged from node_modules before dev and build. Not compiled by Next.
+/public/codecs
+
 # production
 /build
 

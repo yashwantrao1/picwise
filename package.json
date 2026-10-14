@@ -5,7 +5,8 @@
   "description": "Private, in-browser image converter and compressor.",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/stage-codecs.mjs && next build",
+    "postinstall": "node scripts/stage-codecs.mjs",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",

@@ -13,9 +13,8 @@ const nextConfig: NextConfig = {
   },
   // Applied when the app is built with Webpack (`next build --webpack`).
   // Next.js 16 uses Turbopack by default; keeping a `turbopack` key above
-  // lets `next build` succeed while this block still configures WASM for
-  // the Webpack path. jsquash loads codecs with `new URL('*.wasm', import.meta.url)`,
-  // which both bundlers emit as static assets.
+  // lets `next build` succeed. Image codecs are served from public/codecs
+  // and are not part of this compile.
   webpack: (config, { isServer }) => {
     config.experiments = {
       ...config.experiments,

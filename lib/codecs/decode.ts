@@ -2,6 +2,7 @@ import { detectFormat } from "@/lib/codecs/detect";
 import { prepareSvg } from "@/lib/codecs/dimensions";
 import { extractIcoImage } from "@/lib/codecs/ico";
 import { toImageData } from "@/lib/codecs/image-data";
+import { loadCodec, type CodecDecodeModule } from "@/lib/codecs/runtime";
 import { formatFromMime } from "@/lib/utils/formats";
 import type { InputFormat } from "@/types";
 
@@ -129,13 +130,14 @@ async function decodeWithJsquash(bytes: Uint8Array, format: "avif" | "webp"): Pr
   try {
     const buffer = copyBuffer(bytes);
     if (format === "avif") {
-      const { decode } = await import("@jsquash/avif");
+      const { decode } = await loadCodec<CodecDecodeModule>("avif/index.js");
       const image = await decode(buffer);
       if (!image) return null;
       return bitmapFromRgba(image.data, image.width, image.height);
     }
-    const { decode } = await import("@jsquash/webp");
+    const { decode } = await loadCodec<CodecDecodeModule>("webp/index.js");
     const image = await decode(buffer);
+    if (!image) return null;
     return bitmapFromRgba(image.data, image.width, image.height);
   } catch {
     return null;
