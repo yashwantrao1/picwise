@@ -107,6 +107,7 @@ function siteNodes(): SchemaNode[] {
       "@type": "WebSite",
       "@id": websiteId,
       name: siteConfig.name,
+      alternateName: [new URL(siteUrl).host],
       url: siteUrl,
       description: siteConfig.description,
       inLanguage: "en",
